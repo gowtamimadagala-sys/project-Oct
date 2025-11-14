@@ -1,5 +1,5 @@
 name: Build
-on: workflow_display
+on: workflow_dispatch
 jobs:
   approval:
     runs-on: ubuntu-latest
