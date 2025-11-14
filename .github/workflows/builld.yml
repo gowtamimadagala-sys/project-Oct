@@ -1,7 +1,25 @@
 name: Build
 on: workflow_display
 jobs:
+  approval:
+    runs-on: ubuntu-latest
+    environment: 
+      name: production
+    steps: 
+      - name: send notification to slack
+        uses: slackapi/slack-github-action@v2.1.1
+        with:
+          webhook: ${{secrets.SLACK_WEBHOOK_URL}}
+          webhook-type: incoming-webhook
+          payload:  |
+            channel: project-oct
+            test: "LMS production deployment started please do Approve it"
+
+
+
+        
   sonar:
+    needs: approval
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -11,5 +29,10 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
+   #sonar:
+   #needs: approval
+   #runs-on: ubuntu-latest
+   #steps:
      
      
