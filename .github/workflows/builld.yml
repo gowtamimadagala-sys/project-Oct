@@ -13,26 +13,18 @@ jobs:
           webhook-type: incoming-webhook
           payload:  |
             channel: project-oct
-            test: "LMS production deployment started please do Approve it"
-
-
-
-        
+            test: "LMS production deployment started please do Approve it"        
   sonar:
     needs: approval
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0  
       - uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-
-   #sonar:
-   #needs: approval
-   #runs-on: ubuntu-latest
-   #steps:
+  
      
      
